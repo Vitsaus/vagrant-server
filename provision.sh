@@ -1,6 +1,6 @@
 # add repos for latest php, nginx & redis
 sudo add-apt-repository -y ppa:nginx/stable
-sudo add-apt-repository -y ppa:ondrej/php5
+sudo add-apt-repository -y ppa:ondrej/php5-5.6
 sudo add-apt-repository -y ppa:rwky/redis
 
 # base
@@ -23,13 +23,6 @@ sudo service php5-fpm restart
 curl -sS https://getcomposer.org/installer | php
 sudo mv composer.phar /usr/local/bin/composer
 composer --version
-
-# nginx config
-sudo rm -f /etc/nginx/sites-enabled/default
-sudo service nginx restart
-
-# redis
-sudo apt-get install -y redis-server
 
 # postgres
 sudo apt-get install -y postgresql postgresql-contrib
