@@ -25,7 +25,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  config.vm.network "private_network", ip: "192.168.33.10"
+  #config.vm.network "private_network", ip: "192.168.33.10"
+  config.vm.network "private_network", type: :dhcp
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -40,7 +41,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "~/vagrant-server/shared/", "/var/www/", type: "nfs", :mount_options => ['nolock,vers=3,udp,noatime']
+  config.vm.synced_folder "~/vagrant-server/shared/", "/var/www/", type: "nfs"
+  config.vm.synced_folder "~/vagrant-server/sites-available/", "/etc/nginx/sites-available/", type: "nfs"
   config.vm.synced_folder '.', '/vagrant', disabled: true
 
   # Provider-specific configuration so you can fine-tune various
@@ -51,7 +53,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ["modifyvm", :id, "--memory", "512"]
   end
 
-  config.vm.provision "shell", path: "./provision.sh"
+  config.vm.provision "shell", path: "./setup.sh"
 
   config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
 
