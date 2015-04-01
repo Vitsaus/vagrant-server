@@ -1,6 +1,6 @@
 server {
     server_name localhost;
-    root /var/www/wom-server/web;
+    root /var/www/sites/wom-server/web;
 
     location / {
         # try to serve file directly, fallback to app.php
