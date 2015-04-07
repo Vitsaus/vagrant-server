@@ -24,6 +24,11 @@ curl -sS https://getcomposer.org/installer | php
 sudo mv composer.phar /usr/local/bin/composer
 composer --version
 
+# default php installation for nginx
+rm /etc/nginx/sites-available/default
+cp /var/www/sites/nginx/default /etc/nginx/sites-available/default
+service nginx restart
+
 # postgres
 apt-get install -y postgresql postgresql-contrib
 
@@ -43,3 +48,10 @@ apt-get -y install oracle-java8-installer
 wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.5.0.deb
 dpkg -i elasticsearch-1.5.0.deb
 /etc/init.d/elasticsearch start
+
+# install node
+curl -sL https://deb.nodesource.com/setup | sudo bash -
+apt-get install -y nodejs
+
+# install bower
+npm install -g bower
