@@ -55,3 +55,4 @@ apt-get install -y nodejs
 
 # install bower
 npm install -g bower
+npm install -g gulp
