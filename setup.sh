@@ -1,6 +1,14 @@
 # change to root user
 sudo su
 
+# update locales
+locale-gen fi_FI.utf8
+> /etc/default/locale # clears locale
+cp /var/www/sites/conf/locale /etc/default/locale
+
+# update timezone
+echo "Europe/Helsinki" | tee /etc/timezone
+
 # add repos for latest php, nginx & java
 add-apt-repository -y ppa:nginx/stable
 add-apt-repository -y ppa:ondrej/php5-5.6
@@ -26,7 +34,7 @@ composer --version
 
 # default php installation for nginx
 rm /etc/nginx/sites-available/default
-cp /var/www/sites/nginx/default /etc/nginx/sites-available/default
+cp /var/www/sites/conf/default /etc/nginx/sites-available/default
 service nginx restart
 
 # postgres
@@ -53,6 +61,6 @@ dpkg -i elasticsearch-1.5.0.deb
 curl -sL https://deb.nodesource.com/setup | sudo bash -
 apt-get install -y nodejs
 
-# install bower
+# install bower and gulp
 npm install -g bower
 npm install -g gulp
