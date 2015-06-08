@@ -64,3 +64,5 @@ apt-get install -y nodejs
 # install bower and gulp
 npm install -g bower
 npm install -g gulp
+npm install -g jspm
+npm install -g live-server
