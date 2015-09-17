@@ -58,7 +58,7 @@ dpkg -i elasticsearch-1.5.0.deb
 /etc/init.d/elasticsearch start
 
 # install node
-curl -sL https://deb.nodesource.com/setup | sudo bash -
+curl -sL https://deb.nodesource.com/setup_4.x | bash -
 apt-get install -y nodejs
 
 # install bower and gulp
@@ -66,3 +66,4 @@ npm install -g bower
 npm install -g gulp
 npm install -g jspm
 npm install -g live-server
+npm install -g knex
