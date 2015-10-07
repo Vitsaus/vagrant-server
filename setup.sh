@@ -65,5 +65,8 @@ apt-get install -y nodejs
 npm install -g bower
 npm install -g gulp
 npm install -g jspm
+npm install -g babel
+npm install -g knex
+npm install -g mocha
 npm install -g live-server
 npm install -g knex
