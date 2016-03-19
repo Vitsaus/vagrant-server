@@ -49,14 +49,6 @@ sudo -u postgres psql -c "ALTER DATABASE vagrant OWNER TO vagrant;"
 
 service postgresql restart
 
-# elasticsearch
-echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
-echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
-apt-get -y install oracle-java8-installer
-wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.5.0.deb
-dpkg -i elasticsearch-1.5.0.deb
-/etc/init.d/elasticsearch start
-
 # install node
 curl -sL https://deb.nodesource.com/setup_4.x | bash -
 apt-get install -y nodejs
@@ -70,3 +62,4 @@ npm install -g knex
 npm install -g mocha
 npm install -g live-server
 npm install -g knex
+npm install -g n
