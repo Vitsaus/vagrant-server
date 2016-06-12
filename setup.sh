@@ -12,7 +12,6 @@ echo "Europe/Helsinki" | tee /etc/timezone
 # add repos for latest php, nginx & java
 add-apt-repository -y ppa:nginx/stable
 add-apt-repository -y ppa:ondrej/php5-5.6
-add-apt-repository -y ppa:webupd8team/java
 
 # base
 apt-key update
@@ -50,7 +49,7 @@ sudo -u postgres psql -c "ALTER DATABASE vagrant OWNER TO vagrant;"
 service postgresql restart
 
 # install node
-curl -sL https://deb.nodesource.com/setup_4.x | bash -
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 apt-get install -y nodejs
 
 # install bower and gulp
@@ -61,5 +60,4 @@ npm install -g babel
 npm install -g knex
 npm install -g mocha
 npm install -g live-server
-npm install -g knex
 npm install -g n
