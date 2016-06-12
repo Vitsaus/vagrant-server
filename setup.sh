@@ -53,7 +53,7 @@ service postgresql restart
 curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 apt-get install -y nodejs
 
-# install bower and gulp
+# install common node packages globally
 npm install -g bower
 npm install -g gulp
 npm install -g jspm
