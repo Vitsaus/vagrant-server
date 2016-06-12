@@ -11,7 +11,7 @@ echo "Europe/Helsinki" | tee /etc/timezone
 
 # add repos for latest php, nginx & java
 add-apt-repository -y ppa:nginx/stable
-add-apt-repository -y ppa:ondrej/php5-5.6
+add-apt-repository -y ppa:ondrej/php
 
 # base
 apt-key update
@@ -19,11 +19,11 @@ apt-get update
 apt-get install -y git vim curl wget sqlite build-essential python-software-properties
 
 # php & nginx
-apt-get install -y nginx php5 php5-cli php5-curl php5-gd php5-mcrypt php5-xdebug php5-pgsql php5-fpm php5-sqlite
+apt-get install -y nginx php7.0 php7.0-cli php7.0-curl php7.0-gd php7.0-mcrypt php7.0-xdebug php7.0-pgsql php7.0-fpm php7.0-sqlite
 
 # php-fpm config
-sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php5/fpm/php.ini
-chown www-data:www-data /var/run/php5-fpm.sock
+sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php7.0/fpm/php.ini
+chown www-data:www-data /var/run/php7.0-fpm.sock
 service php5-fpm restart
 
 # composer
