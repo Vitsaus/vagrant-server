@@ -2,6 +2,7 @@
 sudo su
 
 # update locales
+sudo apt-get install language-pack-fi
 locale-gen fi_FI.utf8
 > /etc/default/locale # clears locale
 cp /var/www/sites/conf/locale /etc/default/locale
