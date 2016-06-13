@@ -62,3 +62,5 @@ npm install -g knex
 npm install -g mocha
 npm install -g live-server
 npm install -g n
+npm install -g webpack
+npm install -g webpack-dev-server
