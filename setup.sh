@@ -10,7 +10,7 @@ cp /var/www/sites/conf/locale /etc/default/locale
 # update timezone
 echo "Europe/Helsinki" | tee /etc/timezone
 
-# add repos for latest php, nginx & java
+# add repos for latest php, nginx
 add-apt-repository -y ppa:nginx/stable
 add-apt-repository -y ppa:ondrej/php
 
@@ -20,7 +20,7 @@ apt-get update
 apt-get install -y git vim curl wget sqlite build-essential python-software-properties
 
 # php & nginx
-apt-get install -y nginx php7.0 php7.0-cli php7.0-curl php7.0-gd php7.0-mcrypt php7.0-xdebug php7.0-pgsql php7.0-fpm php7.0-sqlite
+apt-get install -y nginx php7.0 php7.0-cli php7.0-curl php7.0-gd php7.0-mcrypt php7.0-pgsql php7.0-fpm php7.0-sqlite
 
 # php-fpm config
 sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php7.0/fpm/php.ini
