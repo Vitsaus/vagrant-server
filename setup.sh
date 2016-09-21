@@ -1,6 +1,8 @@
 # change to root user
 sudo su
 
+DEBIAN_FRONTEND=noninteractive
+
 # update locales
 sudo apt-get install language-pack-fi
 locale-gen fi_FI.utf8
@@ -20,7 +22,7 @@ apt-get update
 apt-get install -y git vim curl wget sqlite build-essential python-software-properties
 
 # php & nginx
-apt-get install -y nginx php7.0 php7.0-cli php7.0-curl php7.0-gd php7.0-mcrypt php7.0-pgsql php7.0-fpm php7.0-sqlite php7.0-pgsql php7.0-zip php7.0-dom php7.0-mbstring
+apt-get install -y nginx php7.0 php7.0-cli php7.0-curl php7.0-gd php7.0-mcrypt php7.0-pgsql php7.0-fpm php7.0-sqlite php7.0-pgsql php7.0-zip php7.0-dom php7.0-mbstring php7.0-mysql
 
 # php-fpm config
 sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php7.0/fpm/php.ini
@@ -41,6 +43,11 @@ rm /etc/nginx/sites-available/default
 cp /var/www/sites/conf/default /etc/nginx/sites-available/default
 service nginx restart
 
+# install wp-cli
+curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+chmod +x wp-cli.phar
+mv wp-cli.phar /usr/local/bin/wp
+
 # postgres
 apt-get install -y postgresql postgresql-contrib
 
@@ -52,6 +59,26 @@ sudo -u postgres psql -c "CREATE DATABASE vagrant;"
 sudo -u postgres psql -c "ALTER DATABASE vagrant OWNER TO vagrant;"
 
 service postgresql restart
+
+# mariadb
+apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db
+add-apt-repository 'deb http://mirror.jmu.edu/pub/mariadb/repo/10.2/ubuntu xenial main'
+apt-get update
+
+debconf-set-selections <<< 'mariadb-server-10.0 mysql-server/root_password password PASS'
+debconf-set-selections <<< 'mariadb-server-10.0 mysql-server/root_password_again password PASS'
+apt-get install -y mariadb-server
+mysql -uroot -pPASS -e "SET PASSWORD = PASSWORD('root');"
+
+# allow remote access (required to access from our private network host. Note that this is completely insecure if used in any other way)
+mysql -u root -proot -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'password' WITH GRANT OPTION; FLUSH PRIVILEGES;"
+
+# drop the anonymous users
+mysql -u root -proot -e "DROP USER ''@'localhost';"
+mysql -u root -proot -e "DROP USER ''@'$(hostname)';"
+
+# drop the demo database
+mysql -u root -proot -e "DROP DATABASE test;"
 
 # install node
 curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
